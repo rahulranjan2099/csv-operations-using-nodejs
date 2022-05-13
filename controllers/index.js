@@ -20,6 +20,18 @@ const csvWriter = createCsvWriter({
     ]
   });
 
+//   const download = function(result){
+//     const blob = new Blob([result],{type:'text/csv'});
+//     const url = window.URL.createObjectURL(blob);
+//     const a = document.createElement(a);
+//     a.setAttribute('hidden','')
+//     a.setAttribute('href',url)
+//     a.setAttribute('download','download.csv');
+//     document.body.appendChild(a);
+//     a.click();
+//     document.body.removeChild(a);
+// } 
+
 module.exports.index = async (req, res) => {
     const category = false;
     const books = await Books.find({}).collation({ locale: "en" }).sort({ title: 1 });
@@ -84,17 +96,17 @@ module.exports.filteredResult = async (req, res) => {
 
     res.render('index.ejs', { books, magazines, authors, category })
 }
+
+
 module.exports.exportCSV = (req,res)=>{
     try{
-        fs.unlinkSync('D:/web learn/project/assginmentCSV/bookplusmagazine_data.csv');
-        csvWriter
+            // fs.unlinkSync('D:/web learn/project/assginmentCSV/bookplusmagazine_data.csv');
+            csvWriter
             .writeRecords(results)
             .then(()=> console.log('Data uploaded into csv successfully'))
             .catch(err=>console.log("Error Found",err))
-        res.send("Data Added :)")
+            res.send("Data Added :)")
+        
     }catch(err){
     res.send("ERROR FOUND !!!!!!!",err)
-    }
-
-    // res.send("OK")
-}
+    }}
